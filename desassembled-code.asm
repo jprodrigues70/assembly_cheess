@@ -2984,6 +2984,8 @@ _term_proc endp
 _fini ends
 
 
+; ####### VARIÁVEIS GLOBAIS E MENSAGENS UTILIZADAS NO JOGO
+
 ; Segment type:	Pure data
 ; Segment permissions: Read
 ; Segment alignment '32byte' can not be represented in assembly
@@ -3180,6 +3182,7 @@ align 4
 __PRETTY_FUNCTION___2836 db 'actual_move',0
 _rodata	ends
 
+; FIM: VARIÁVEIS GLOBAIS; MENSAGENS; FUNÇÕES INTERNAS UTILIZADAS NO JOGO ########
 
 ; Segment type:	Pure data
 ; Segment permissions: Read
