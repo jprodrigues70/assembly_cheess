@@ -259,6 +259,7 @@ jmp	register_tm_clones										; Salta para a subrotina "register_tm_clones"
 frame_dummy endp
 
 
+; ####### FUNÇÕES INTERNAS UTILIZADAS NO JOGO
 
 ; Attributes: bp-based frame
 
@@ -2901,7 +2902,7 @@ leave			; Termina o espaço reservado para variáveis locais e retira o EBP da p
 retn
 absolute endp
 
-
+; ####### FIM FUNÇÕES INTERNAS UTILIZADAS NO JOGO
 
 
 public __libc_csu_init
