@@ -37,12 +37,12 @@ public _init_proc
 _init_proc proc	near
 push	ebx    ; Empilha valor EBX - _init
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-call	__x86_get_pc_thunk_bx				; Faz uma chamada para a subrotina "__x86_get_pc_thunk_bx"
+call	__x86_get_pc_thunk_bx		; Faz uma chamada para a subrotina "__x86_get_pc_thunk_bx"
 add	ebx, 3BD3h
 mov	eax, [ebx-4]
-test	eax, eax							; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_8048442						; Faz um salto curto (para um local próximo) até a subrotina "loc_8048442" se a zero flag estiver setada. (ZF = 1)
-call	__gmon_start__						; Faz uma chamada para a subrotina "__gmon_start__"
+test	eax, eax					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_8048442				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048442" se a zero flag estiver setada. (ZF = 1)
+call	__gmon_start__				; Faz uma chamada para a subrotina "__gmon_start__"
 
 loc_8048442:
 add	esp, 8
@@ -116,19 +116,19 @@ assume es:nothing, ss:nothing, ds:_data, fs:nothing, gs:nothing
 
 public _start
 _start proc near
-xor	ebp, ebp    											; Aplica OU exclusivo bit-a-bit entre EBP e EBP, armaena resultado em EBP
-pop	esi   													; Desempilha ESI
-mov	ecx, esp    											; Copia valor do registrador ESP para ECX
-and	esp, 0FFFFFFF0h   										; Realiza operação booleana "AND" bit-a-bit e armazena valor lógico em ESP
-push	eax    												; Empilha valor de EAX
-push	esp    												; Empilha valor de ESP
-push	edx    												; Empilha valor de EDX
+xor	ebp, ebp    					; Aplica OU exclusivo bit-a-bit entre EBP e EBP, armaena resultado em EBP
+pop	esi   							; Desempilha ESI
+mov	ecx, esp    					; Copia valor do registrador ESP para ECX
+and	esp, 0FFFFFFF0h   				; Realiza operação booleana "AND" bit-a-bit e armazena valor lógico em ESP
+push	eax    						; Empilha valor de EAX
+push	esp    						; Empilha valor de ESP
+push	edx    						; Empilha valor de EDX
 push	offset __libc_csu_fini
 push	offset __libc_csu_init
-push	ecx    												; Empilha valor de ECX
-push	esi    												; Empilha ESI
+push	ecx    						; Empilha valor de ECX
+push	esi    						; Empilha ESI
 push	offset main
-call	___libc_start_main									; Faz uma chamada para a subrotina "___libc_start_main"
+call	___libc_start_main			; Faz uma chamada para a subrotina "___libc_start_main"
 hlt
 db	66h
 nop
@@ -164,17 +164,17 @@ deregister_tm_clones proc near
 mov	eax, 804C03Fh
 sub	eax, 804C03Ch
 cmp	eax, 6
-jbe	short locret_8048579									; Faz um salto curto (para um local próximo) até a subrotina "locret_8048579" se a cf e zf flag estiverem setadas. No caso, significa que irá saltar se o resultado da comparação indicar menor ou igual. (O sinal não interere) (CF = 1 ZF = 1)
+jbe	short locret_8048579			; Faz um salto curto (para um local próximo) até a subrotina "locret_8048579" se a cf e zf flag estiverem setadas. No caso, significa que irá saltar se o resultado da comparação indicar menor ou igual. (O sinal não interere) (CF = 1 ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short locret_8048579									; Faz um salto curto (para um local próximo) até a subrotina "locret_8048579" se a zero flag estiver setada. (ZF = 1)
-push	ebp    												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short locret_8048579			; Faz um salto curto (para um local próximo) até a subrotina "locret_8048579" se a zero flag estiver setada. (ZF = 1)
+push	ebp    						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
 sub	esp, 14h
-push	804C03Ch
+push	804C03Ch                    ; Empilha "804C03Ch";
 call	eax
-add	esp, 10h
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+leave			                    ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 
 locret_8048579:
 rep retn
@@ -189,22 +189,22 @@ register_tm_clones proc	near
 mov	eax, 804C03Ch
 sub	eax, 804C03Ch
 sar	eax, 2
-mov	edx, eax    											; Copia valor de EAX parar EDX
-shr	edx, 1Fh    											; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
+mov	edx, eax                        ; Copia valor de EAX parar EDX
+shr	edx, 1Fh    				    ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+add	eax, edx                        ; Soma valor de EDX com EAX, e armazena em EDX
 sar	eax, 1
-jz	short locret_80485B3									; Faz um salto curto (para um local próximo) até a subrotina "locret_80485B3" se a zero flag estiver setada. (ZF = 1)
+jz	short locret_80485B3            ; Faz um salto curto (para um local próximo) até a subrotina "locret_80485B3" se a zero flag estiver setada. (ZF = 1)
 mov	edx, 0
-test	edx, edx
-jz	short locret_80485B3									; Faz um salto curto (para um local próximo) até a subrotina "locret_80485B3" se a zero flag estiver setada. (ZF = 1)
-push	ebp   												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
-sub	esp, 10h
-push	eax    												;  Empilha valor de EAX
-push	804C03Ch
-call	edx
-add	esp, 10h
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+test	edx, edx                    ; Aplica a operação booleana "AND" entre valores de EDX e EDX, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short locret_80485B3            ; Faz um salto curto (para um local próximo) até a subrotina "locret_80485B3" se a zero flag estiver setada. (ZF = 1)
+push	ebp   					    ; Empilha valor de EBP
+mov	ebp, esp   					    ; Copia valor de ESP para EBP
+sub	esp, 10h                        ; Subtrai 10h (16 em decimal) de ESP
+push	eax    					    ; Empilha valor de EAX
+push	804C03Ch                    ; Empilha "804C03Ch";
+call	edx                         ; Faz uma chamada para a posição de memória armazenada em EDX
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+leave			                    ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 
 locret_80485B3:
 rep retn
@@ -217,13 +217,13 @@ align 10h
 
 __do_global_dtors_aux proc near
 cmp	ds:completed_7200, 0
-jnz	short locret_80485DC									; Faz um salto curto (para um local próximo) até a subrotina "locret_80485DC". Se a ZF não estiver setada. (ZF = 0)
-push	ebp   												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-call	deregister_tm_clones								; Faz uma chamada para a subrotina "deregister_tm_clones"
+jnz	short locret_80485DC			; Faz um salto curto (para um local próximo) até a subrotina "locret_80485DC". Se a ZF não estiver setada. (ZF = 0)
+push	ebp   						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
+sub	esp, 8                          ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+call	deregister_tm_clones        ; Faz uma chamada para a subrotina "deregister_tm_clones"
 mov	ds:completed_7200, 1
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+leave			                    ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 
 locret_80485DC:
 rep retn
@@ -237,25 +237,25 @@ align 10h
 frame_dummy proc near
 mov	eax, offset __JCR_LIST__
 mov	edx, [eax]
-test	edx, edx
-jnz	short													; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_80485F0
+test	edx, edx                    ; Aplica a operação booleana "AND" entre valores de EDX e EDX, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jnz	short							; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_80485F0
 
 loc_80485EB:
-jmp	short register_tm_clones								; Faz um salto curto (para um local próximo) até a subrotina "register_tm_clones"
+jmp	short register_tm_clones		; Faz um salto curto (para um local próximo) até a subrotina "register_tm_clones"
 align 10h
 
 loc_80485F0:
 mov	edx, 0
-test	edx, edx
-jz	short loc_80485EB										; Faz um salto curto (para um local próximo) até a subrotina "loc_80485EB" se a zero flag estiver setada. (ZF = 1)
-push	ebp    												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
+test	edx, edx                    ; Aplica a operação booleana "AND" entre valores de EDX e EDX, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_80485EB				; Faz um salto curto (para um local próximo) até a subrotina "loc_80485EB" se a zero flag estiver setada. (ZF = 1)
+push	ebp    						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
 sub	esp, 14h
-push	eax    												; Empilha valor de EAX
-call	edx
-add	esp, 10h
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
-jmp	register_tm_clones										; Salta para a subrotina "register_tm_clones"
+push	eax    						; Empilha valor de EAX
+call	edx                         ; Faz uma chamada para a posição de memória armazenada em EDX
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+leave			                    ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+jmp	register_tm_clones				; Salta para a subrotina "register_tm_clones"
 frame_dummy endp
 
 
@@ -269,37 +269,37 @@ main proc near
 arg_0= dword ptr  4
 
 lea	ecx, [esp+arg_0]
-and	esp, 0FFFFFFF0h   										; Realiza operação booleana "AND" bit-a-bit e armazena valor lógico em ESP
+and	esp, 0FFFFFFF0h   				; Realiza operação booleana "AND" bit-a-bit e armazena valor lógico em ESP
 push	dword ptr [ecx-4]
-push	ebp    												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
-push	ecx    												; Empilha valor de ECX
-sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
+push	ebp    						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
+push	ecx    						; Empilha valor de ECX
+sub	esp, 4   						; Subtrai 4 (em decimal) bytes do valor de ESP
 
 loc_804861C:
-call	initialise											; Faz uma chamada para a subrotina "initialise"
-jmp	short loc_804863D										; Faz um salto curto (para um local próximo) até a subrotina "loc_804863D"
+call	initialise					; Faz uma chamada para a subrotina "initialise"
+jmp	short loc_804863D				; Faz um salto curto (para um local próximo) até a subrotina "loc_804863D"
 
 loc_8048623:
-call	display												; Faz uma chamada para a subrotina "display"
-call	manage_input										; Faz uma chamada para a subrotina "manage_input"
+call	display						; Faz uma chamada para a subrotina "display"
+call	manage_input				; Faz uma chamada para a subrotina "manage_input"
 movzx	eax, ds:is_clicked
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_804863D										; Faz um salto curto (para um local próximo) até a subrotina "loc_804863D" se a zero flag estiver setada. (ZF = 1)
-call	process												; Faz uma chamada para a subrotina "process"
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_804863D				; Faz um salto curto (para um local próximo) até a subrotina "loc_804863D" se a zero flag estiver setada. (ZF = 1)
+call	process						; Faz uma chamada para a subrotina "process"
 
 loc_804863D:
-movzx	eax, ds:cur_player
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
-push	eax													; Empilha valor de EAX
-call	is_game_over										; Faz uma chamada para a subrotina "is_game_over"
-add	esp, 10h
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048623										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048623" se a zero flag estiver setada. (ZF = 1)
-call	display												; Faz uma chamada para a subrotina "display"
-call	game_over											; Faz uma chamada para a subrotina "game_over"
-jmp	short loc_804861C										; Faz um salto curto (para um local próximo) até a subrotina "loc_804861C"
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+push	eax							; Empilha valor de EAX
+call	is_game_over				; Faz uma chamada para a subrotina "is_game_over"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048623				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048623" se a zero flag estiver setada. (ZF = 1)
+call	display						; Faz uma chamada para a subrotina "display"
+call	game_over					; Faz uma chamada para a subrotina "game_over"
+jmp	short loc_804861C				; Faz um salto curto (para um local próximo) até a subrotina "loc_804861C"
 main endp
 
 
@@ -323,12 +323,12 @@ var_1C=	dword ptr -1Ch
 var_18=	dword ptr -18h
 var_C= dword ptr -0Ch
 
-push	ebp    												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
-push	edi    												; Empilha valor de EDI
-push	esi    												; Empilha ES    ; Empilha valor EBX
-push	ebx
-sub	esp, 18Ch
+push	ebp    						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
+push	edi    						; Empilha valor de EDI
+push	esi    						; Empilha ES    ; Empilha valor EBX
+push	ebx                         ; Empilha o valor de EBX
+sub	esp, 18Ch                       ; Subtrai 18Ch (396 em decimal)
 mov	eax, large gs:14h
 mov	[ebp+var_1C], eax
 xor	eax, eax
@@ -343,118 +343,118 @@ mov	ecx, [ebx+edx-4]
 mov	[eax+edx-4], ecx
 lea	edi, [eax+4]
 and	edi, 0FFFFFFFCh
-sub	eax, edi
-sub	ebx, eax
-add	edx, eax    											; Soma valor de EDX com EAX, e armazena em EDX
+sub	eax, edi                        ; Subtrai o valor de EDI de EAX
+sub	ebx, eax                        ; Subtrai o valor de EAX de EBX
+add	edx, eax    					; Soma valor de EDX com EAX, e armazena em EDX
 and	edx, 0FFFFFFFCh
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    					; Copia valor de EDX para EAX
 shr	eax, 2
-mov	esi, ebx
-mov	ecx, eax    											; Copia valor de ECX para EAX
+mov	esi, ebx                        ; Copia o valor de EBX para ESI
+mov	ecx, eax    					; Copia valor de ECX para EAX
 rep movsd
-movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, ds:current_pos         ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shr	al, 3
 mov	[ebp+var_189], al
-movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, ds:current_pos         ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 and	eax, 7
 mov	[ebp+var_188], al
-movzx	eax, ds:cur_player
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_80486F0										; Faz um salto curto (para um local próximo) até a subrotina "loc_80486F0" se a zero flag estiver setada. (ZF = 1)
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_80486F0				; Faz um salto curto (para um local próximo) até a subrotina "loc_80486F0" se a zero flag estiver setada. (ZF = 1)
 mov	eax, offset aTrue ; "TRUE"
-jmp	short loc_80486F5										; Faz um salto curto (para um local próximo) até a subrotina "loc_80486F5"
+jmp	short loc_80486F5				; Faz um salto curto (para um local próximo) até a subrotina "loc_80486F5"
 
 loc_80486F0:		; "FALSE"
 mov	eax, offset aFalse
 
 loc_80486F5:
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	eax    ;  Empilha valor de EAX
+sub	esp, 8                          ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+push	eax                         ;  Empilha valor de EAX
 push	offset aCur_playerS ; "cur_player   == %s\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:has_selected
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048718										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048718" se a zero flag estiver setada. (ZF = 1)
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048718				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048718" se a zero flag estiver setada. (ZF = 1)
 mov	eax, offset aTrue ; "TRUE"
-jmp	short loc_804871D										; Faz um salto curto (para um local próximo) até a subrotina "loc_804871D"
+jmp	short loc_804871D				; Faz um salto curto (para um local próximo) até a subrotina "loc_804871D"
 
 loc_8048718:		; "FALSE"
 mov	eax, offset aFalse
 
 loc_804871D:
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	eax    ;  Empilha valor de EAX
+sub	esp, 8                          ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+push	eax                         ;  Empilha valor de EAX
 push	offset aHas_selectedS ;	"has_selected == %s\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:is_clicked
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048740										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048740" se a zero flag estiver setada. (ZF = 1)
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048740				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048740" se a zero flag estiver setada. (ZF = 1)
 mov	eax, offset aTrue ; "TRUE"
-jmp	short loc_8048745										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048745"
+jmp	short loc_8048745				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048745"
 
 loc_8048740:		; "FALSE"
 mov	eax, offset aFalse
 
 loc_8048745:
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	eax    												; Empilha valor de EAX
+sub	esp, 8                          ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+push	eax    						; Empilha valor de EAX
 push	offset aIs_clickedS ; "is_clicked   == %s\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:selected_pos  ; Copia valor de "ds:selected_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 and	eax, 7
-mov	edx, eax    											; Copia valor de EAX parar EDX
-movzx	eax, ds:selected_pos  ; Copia valor de "ds:selected_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's    							; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	edx, eax    					; Copia valor de EAX parar EDX
+movzx	eax, ds:selected_pos        ; Copia valor de "ds:selected_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shr	al, 3
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
-sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
-push	edx    												; Empilha valor de EDX
-push	eax    												; Empilha valor de EAX
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+sub	esp, 4   						; Subtrai 4 (em decimal) bytes do valor de ESP
+push	edx    						; Empilha valor de EDX
+push	eax    						; Empilha valor de EAX
 push	offset aSelected_posDD ; "selected_pos == (%d,%d);\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 and	eax, 7
-mov	edx, eax    											; Copia valor de EAX parar EDX
-movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's   								; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	edx, eax    					; Copia valor de EAX parar EDX
+movzx	eax, ds:current_pos         ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shr	al, 3
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
-sub	esp, 4  												; Subtrai 4 (em decimal) bytes do valor de ESP
-push	edx    												; Empilha valor de EDX
-push	eax    												;  Empilha valor de EAX
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+sub	esp, 4  						; Subtrai 4 (em decimal) bytes do valor de ESP
+push	edx    						; Empilha valor de EDX
+push	eax    						; Empilha valor de EAX
 push	offset aCurrent_posDD ;	"current_pos  == (%d,%d);\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:en_passant_flag
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	eax    												; Empilha valor de EAX
+push	eax    						; Empilha valor de EAX
 push	offset aEn_paasant_fla ; "en_paasant_flag  == %d;\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
-movzx	eax, ds:castle_flag 								; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, ds:castle_flag 		; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	eax    												; Empilha valor de EAX
+push	eax    						; Empilha valor de EAX
 push	offset aCastle_flagD ; "castle_flag	 == %d;\n"
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
-movzx	eax, [ebp+var_18B]    								; Copia valor apontado por [EBP+var_18B] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+call	_printf						; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, [ebp+var_18B]    		; Copia valor apontado por [EBP+var_18B] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shl	eax, 3
-mov	[ebp+var_184], eax										; Copia valor de EAX para o valor referenciado por [EBP+var_184]
-jmp	loc_8048BD5												; Faz um salto incondicional até a subrotina "loc_8048BD5"
+mov	[ebp+var_184], eax				; Copia valor de EAX para o valor referenciado por [EBP+var_184]
+jmp	loc_8048BD5						; Faz um salto incondicional até a subrotina "loc_8048BD5"
 
 loc_80487FD:
 mov	[ebp+var_180], 0
-jmp	loc_8048BA8												; Faz um salto incondicional até a subrotina "loc_8048BA8"
+jmp	loc_8048BA8						; Faz um salto incondicional até a subrotina "loc_8048BA8"
 
 loc_804880C:
-movzx	edi, [ebp+var_18B]   	 							; Copia valor apontado por [EBP+var_18B] para EDI, estendendo a parte mais sigificativa de EDI com 0's
-mov	eax, [ebp+var_184]    									; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	edi, [ebp+var_18B]   	 	; Copia valor apontado por [EBP+var_18B] para EDI, estendendo a parte mais sigificativa de EDI com 0's
+mov	eax, [ebp+var_184]    			; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cdq
 idiv	edi
 mov	[ebp+var_187], al
@@ -464,144 +464,144 @@ cdq
 idiv	ebx
 mov	[ebp+var_186], al
 movzx	eax, [ebp+var_186]
-movzx	edx, al  											; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	edx, al  					; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, [ebp+var_187]
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   					; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	edx    												; Empilha valor de EDX
-push	eax   												; Empilha valor de EAX
-call	to_pos												; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+push	edx    						; Empilha valor de EDX
+push	eax   						; Empilha valor de EAX
+call	to_pos						; Faz uma chamada para a subrotina "to_pos"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	[ebp+var_185], al
 movzx	ecx, [ebp+var_18B]
-mov	eax, [ebp+var_184]    									; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	eax, [ebp+var_184]    			; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jnz	short loc_804889D										; Faz um salto curto (para um local próximo) até a subrotina "loc_804889D". Se a ZF não estiver setada. (ZF = 0)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jnz	short loc_804889D				; Faz um salto curto (para um local próximo) até a subrotina "loc_804889D". Se a ZF não estiver setada. (ZF = 0)
 movzx	ecx, [ebp+var_18A]
 mov	eax, [ebp+var_180]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jnz	short loc_804889D										; Faz um salto curto (para um local próximo) até a subrotina "loc_804889D". Se a ZF não estiver setada. (ZF = 0)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jnz	short loc_804889D				; Faz um salto curto (para um local próximo) até a subrotina "loc_804889D". Se a ZF não estiver setada. (ZF = 0)
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	2Bh		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_804889D:
 movzx	ecx, [ebp+var_18B]
-mov	eax, [ebp+var_184]    									; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	eax, [ebp+var_184]    			; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jnz	loc_8048943												; Faz um salto até a subrotina "loc_8048943" se a zero flag não estiver setada. (ZF = 0)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jnz	loc_8048943						; Faz um salto até a subrotina "loc_8048943" se a zero flag não estiver setada. (ZF = 0)
 movzx	eax, [ebp+var_187]
 cmp	al, [ebp+var_189]
-jz	short loc_80488DB										; Faz um salto curto (para um local próximo) até a subrotina "loc_80488DB" se a zero flag estiver setada. (ZF = 1)
+jz	short loc_80488DB				; Faz um salto curto (para um local próximo) até a subrotina "loc_80488DB" se a zero flag estiver setada. (ZF = 1)
 movsx	eax, [ebp+var_187]
 movsx	edx, [ebp+var_189]
 add	edx, 1
 cmp	eax, edx
-jnz	short													; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_8048912
+jnz	short							; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_8048912
 
 loc_80488DB:
 movzx	eax, [ebp+var_186]
 cmp	al, [ebp+var_188]
-jnz	short loc_8048912										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048912". Se a ZF não estiver setada. (ZF = 0)
+jnz	short loc_8048912				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048912". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:has_selected
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_80488FC										; Faz um salto curto (para um local próximo) até a subrotina "loc_80488FC" se a zero flag estiver setada. (ZF = 1)
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_80488FC				; Faz um salto curto (para um local próximo) até a subrotina "loc_80488FC" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 23h
-jmp	short loc_8048901										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048901"
+jmp	short loc_8048901				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048901"
 
 loc_80488FC:
 mov	eax, 40h
 
 loc_8048901:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
-push	eax		; int										; Empilha valor de EAX
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+push	eax		; int				; Empilha valor de EAX
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048912:
 mov	eax, [ebp+var_180]
 and	eax, 1
-test	eax, eax											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_8048931										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048931" se a zero flag estiver setada. (ZF = 1)
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+test	eax, eax					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_8048931				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048931" se a zero flag estiver setada. (ZF = 1)
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	20h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048931:
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	2Dh		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048943:
 movzx	ecx, [ebp+var_18A]
 mov	eax, [ebp+var_180]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jnz	loc_80489E9												; Faz um salto até a subrotina "loc_80489E9" se a zero flag não estiver setada. (ZF = 0)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jnz	loc_80489E9						; Faz um salto até a subrotina "loc_80489E9" se a zero flag não estiver setada. (ZF = 0)
 movzx	eax, [ebp+var_186]
 cmp	al, [ebp+var_188]
-jz	short loc_8048981										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048981" se a zero flag estiver setada. (ZF = 1)
+jz	short loc_8048981				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048981" se a zero flag estiver setada. (ZF = 1)
 movsx	eax, [ebp+var_186]
 movsx	edx, [ebp+var_188]
 add	edx, 1
 cmp	eax, edx
-jnz	short													; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_80489B8
+jnz	short							; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_80489B8
 
 loc_8048981:
 movzx	eax, [ebp+var_187]
 cmp	al, [ebp+var_189]
-jnz	short loc_80489B8										; Faz um salto curto (para um local próximo) até a subrotina "loc_80489B8". Se a ZF não estiver setada. (ZF = 0)
+jnz	short loc_80489B8				; Faz um salto curto (para um local próximo) até a subrotina "loc_80489B8". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:has_selected
-test	al, al												; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_80489A2										; Faz um salto curto (para um local próximo) até a subrotina "loc_80489A2" se a zero flag estiver setada. (ZF = 1)
+test	al, al						; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_80489A2				; Faz um salto curto (para um local próximo) até a subrotina "loc_80489A2" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 23h
-jmp	short loc_80489A7										; Faz um salto curto (para um local próximo) até a subrotina "loc_80489A7"
+jmp	short loc_80489A7				; Faz um salto curto (para um local próximo) até a subrotina "loc_80489A7"
 
 loc_80489A2:
 mov	eax, 40h
 
 loc_80489A7:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
-push	eax		; int										;  Empilha valor de EAX
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+push	eax		; int				; Empilha valor de EAX
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_80489B8:
-mov	eax, [ebp+var_184]    									; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	eax, [ebp+var_184]    			; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 and	eax, 1
-test	eax, eax											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_80489D7										; Faz um salto curto (para um local próximo) até a subrotina "loc_80489D7" se a zero flag estiver setada. (ZF = 1)
+test	eax, eax					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_80489D7				; Faz um salto curto (para um local próximo) até a subrotina "loc_80489D7" se a zero flag estiver setada. (ZF = 1)
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	20h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_80489D7:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	7Ch		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_80489E9:
 mov	eax, [ebp+var_180]
@@ -609,146 +609,146 @@ add	eax, 1
 movzx	ecx, [ebp+var_18A]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax  											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_8048A63										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax  					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_8048A63				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
 mov	eax, [ebp+var_180]
 lea	edx, [eax-1]
 movzx	eax, [ebp+var_18A]
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
+add	eax, edx     					; Soma valor de EDX com EAX, e armazena em EDX
 movzx	ecx, [ebp+var_18A]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_8048A63										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_8048A63				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
 mov	eax, [ebp+var_180]
 add	eax, 2
 movzx	ecx, [ebp+var_18A]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax  											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jz	short loc_8048A63										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax  					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jz	short loc_8048A63				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A63" se a zero flag estiver setada. (ZF = 1)
 mov	eax, [ebp+var_180]
 lea	edx, [eax-2]
 movzx	eax, [ebp+var_18A]
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
+add	eax, edx     					; Soma valor de EDX com EAX, e armazena em EDX
 movzx	ecx, [ebp+var_18A]
 cdq
 idiv	ecx
-mov	eax, edx    											; Copia valor de EDX para EAX
-test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
-jnz	loc_8048AF5												; Faz um salto até a subrotina "loc_8048AF5" se a zero flag não estiver setada. (ZF = 0)
+mov	eax, edx    					; Copia valor de EDX para EAX
+test	eax, eax   					; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
+jnz	loc_8048AF5						; Faz um salto até a subrotina "loc_8048AF5" se a zero flag não estiver setada. (ZF = 0)
 
 loc_8048A63:
 movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cmp	[ebp+var_185], al
-jnz	short loc_8048A9A										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A9A". Se a ZF não estiver setada. (ZF = 0)
+jnz	short loc_8048A9A				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A9A". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:has_selected
-test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048A84										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A84" se a zero flag estiver setada. (ZF = 1)
+test	al, al   					; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048A84				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A84" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 23h
-jmp	short loc_8048A89										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A89"
+jmp	short loc_8048A89				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048A89"
 
 loc_8048A84:
 mov	eax, 40h
 
 loc_8048A89:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
-push	eax		; int   									; Empilha valor de EAX
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+push	eax		; int   			; Empilha valor de EAX
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048A9A:
 movzx	eax, ds:selected_pos  ; Copia valor de "ds:selected_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cmp	[ebp+var_185], al
-jnz	short loc_8048ABB										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048ABB". Se a ZF não estiver setada. (ZF = 0)
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+jnz	short loc_8048ABB				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048ABB". Se a ZF não estiver setada. (ZF = 0)
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	2Ah		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048ABB:
-mov	edx, ds:are_marked									; Copia valor de "ds:are_marked" para EDX
+mov	edx, ds:are_marked			    ; Copia valor de "ds:are_marked" para EDX
 movzx	eax, [ebp+var_185]
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
-movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048AE3										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048AE3" se a zero flag estiver setada. (ZF = 1)
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+add	eax, edx     					; Soma valor de EDX com EAX, e armazena em EDX
+movzx	eax, byte ptr [eax]         ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+test	al, al   					; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048AE3				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048AE3" se a zero flag estiver setada. (ZF = 1)
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	24h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048AE3:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	20h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	loc_8048BA1												; Faz um salto incondicional até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	loc_8048BA1						; Faz um salto incondicional até a subrotina "loc_8048BA1"
 
 loc_8048AF5:
-mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
+mov	edx, ds:cells_type				; Copia valor de "ds:cells_type" para EDX
 movzx	eax, [ebp+var_185]
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
-movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+add	eax, edx     					; Soma valor de EDX com EAX, e armazena em EDX
+movzx	eax, byte ptr [eax]         ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	ebx, al
 movzx	ecx, [ebp+var_18B]
 movzx	esi, [ebp+var_18B]
-mov	eax, [ebp+var_184]    									; Copia valor apontado por [EBP+var_184] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+mov	eax, [ebp+var_184]    			; Copia valor apontado por [EBP+var_184] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cdq
 idiv	esi
-mov	eax, edx    											; Copia valor de EDX para EAX
-sub	ecx, eax    											; Subtrai valor de EAX em ECX, armazena em ECX
-mov	eax, ecx    											; Copia valor de ECX para EAX
+mov	eax, edx    					; Copia valor de EDX para EAX
+sub	ecx, eax    					; Subtrai valor de EAX em ECX, armazena em ECX
+mov	eax, ecx    					; Copia valor de ECX para EAX
 lea	ecx, [eax-1]
 movzx	esi, [ebp+var_18A]
 mov	eax, [ebp+var_180]
 cdq
 idiv	esi
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    					; Copia valor de EDX para EAX
 lea	esi, [eax-3]
-mov	eax, ecx    											; Copia valor de ECX para EAX
+mov	eax, ecx    					; Copia valor de ECX para EAX
 shl	eax, 2
-add	eax, ecx    											; Soma valor de EAX com ECX, e armazena em EAX
+add	eax, ecx    					; Soma valor de EAX com ECX, e armazena em EAX
 add	eax, eax
 imul	edx, ebx, 32h
-add	eax, edx     											; Soma valor de EDX com EAX, e armazena em EDX
+add	eax, edx     					; Soma valor de EDX com EAX, e armazena em EDX
 lea	edi, [ebp+var_18]
 add	eax, edi
 add	eax, esi
 sub	eax, 162h
-movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, byte ptr [eax]         ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cmp	al, 20h
-jnz	short loc_8048B6F										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048B6F". Se a ZF não estiver setada. (ZF = 0)
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+jnz	short loc_8048B6F				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048B6F". Se a ZF não estiver setada. (ZF = 0)
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	20h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	short loc_8048BA1										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	short loc_8048BA1				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BA1"
 
 loc_8048B6F:
 mov	edx, ds:cells_side
 movzx	eax, [ebp+var_185]
-add	eax, edx    											; Soma valor de EDX com EAX, e armazena em EDX
+add	eax, edx    					; Soma valor de EDX com EAX, e armazena em EDX
 movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-test	al, al  											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
-jz	short loc_8048B94										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048B94" se a zero flag estiver setada. (ZF = 1)
+test	al, al  					; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
+jz	short loc_8048B94				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048B94" se a zero flag estiver setada. (ZF = 1)
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	4Fh		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
-jmp	short loc_8048BA1										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BA1"
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+jmp	short loc_8048BA1				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BA1"
 
 loc_8048B94:
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+sub	esp, 0Ch		                ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	58h		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
+call	_putchar					; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 
 loc_8048BA1:
 add	[ebp+var_180], 1
@@ -760,10 +760,10 @@ add	eax, 1
 cmp	eax, [ebp+var_180]
 jg	loc_804880C
 sub	[ebp+var_184], 1
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+sub	esp, 0Ch		                 ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	0Ah		; int
-call	_putchar											; Faz uma chamada para a subrotina "_putchar"
-add	esp, 10h
+call	_putchar					 ; Faz uma chamada para a subrotina "_putchar"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 
 loc_8048BD5:
 cmp	[ebp+var_184], 0
@@ -771,15 +771,15 @@ jns	loc_80487FD
 nop
 mov	eax, [ebp+var_1C]
 xor	eax, large gs:14h
-jz	short loc_8048BF4										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BF4" se a zero flag estiver setada. (ZF = 1)
-call	___stack_chk_fail									; Faz uma chamada para a subrotina "___stack_chk_fail"
+jz	short loc_8048BF4				; Faz um salto curto (para um local próximo) até a subrotina "loc_8048BF4" se a zero flag estiver setada. (ZF = 1)
+call	___stack_chk_fail			; Faz uma chamada para a subrotina "___stack_chk_fail"
 
 loc_8048BF4:
 lea	esp, [ebp-0Ch]
-pop	ebx   													; Desempilha EBX
-pop	esi   													; Desempilha ESI
-pop	edi   													; Desempilha EDI
-pop	ebp   													; Desempilha EBP
+pop	ebx   							; Desempilha EBX
+pop	esi   							; Desempilha ESI
+pop	edi   							; Desempilha EDI
+pop	ebp   							; Desempilha EBP
 retn
 display	endp
 
@@ -795,31 +795,31 @@ var_F= byte ptr	-0Fh
 var_E= byte ptr	-0Eh
 var_C= dword ptr -0Ch
 
-push	ebp    												; Empilha valor de EBP
-mov	ebp, esp   												; Copia valor de ESP para EBP
+push	ebp    						; Empilha valor de EBP
+mov	ebp, esp   						; Copia valor de ESP para EBP
 sub	esp, 18h
 mov	eax, large gs:14h
 mov	[ebp+var_C], eax
 xor	eax, eax
-movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, ds:current_pos        ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shr	al, 3
 mov	[ebp+var_10], al
-movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, ds:current_pos        ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 and	eax, 7
 mov	[ebp+var_F], al
 mov	ds:is_clicked, 0
-sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
-push	offset aGetInputAswdFo ; "Get input (aswd for direction, f for cl"...
-call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+sub	esp, 0Ch		               ; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
+push	offset aGetInputAswdFo     ; "Get input (aswd for direction, f for cl"...
+call	_printf					   ; Faz uma chamada para a subrotina "_printf"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+sub	esp, 8                         ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 lea	eax, [ebp-0Eh]
-push	eax    												; Empilha valor de EAX
+push	eax    					   ; Empilha valor de EAX
 push	offset aS	; "%s"
 call	___isoc99_scanf
-add	esp, 10h
-movzx	eax, [ebp+var_E]    								; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, [ebp+var_E]    	   ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movsx	eax, al                    ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	eax, 61h	; switch 23 cases
 cmp	eax, 16h
 ja	loc_8048CEB	; default
@@ -829,88 +829,88 @@ jmp	eax		; switch jump
 loc_8048C6E:		; case 0x61
 movsx	eax, [ebp+var_F]
 lea	edx, [eax+7]
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 sar	eax, 1Fh
 shr	eax, 1Dh
-add	edx, eax    											; Soma valor de EDX com EAX, e armazena em EDX
+add	edx, eax    				   ; Soma valor de EDX com EAX, e armazena em EDX
 and	edx, 7
-sub	edx, eax    											; Subtrai valor de EAX de EDX, e armazena em EDX
-mov	eax, edx    											; Copia valor de EDX para EAX
+sub	edx, eax    				   ; Subtrai valor de EAX de EDX, e armazena em EDX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 mov	[ebp+var_F], al
-jmp	short loc_8048D03										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
+jmp	short loc_8048D03			   ; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
 
 loc_8048C8B:		; case 0x64
 movsx	eax, [ebp+var_F]
 lea	edx, [eax+9]
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 sar	eax, 1Fh
 shr	eax, 1Dh
-add	edx, eax    											; Soma valor de EDX com EAX, e armazena em EDX
+add	edx, eax    				   ; Soma valor de EDX com EAX, e armazena em EDX
 and	edx, 7
-sub	edx, eax    											; Subtrai valor de EAX de EDX, e armazena em EDX
-mov	eax, edx    											; Copia valor de EDX para EAX
+sub	edx, eax    				   ; Subtrai valor de EAX de EDX, e armazena em EDX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 mov	[ebp+var_F], al
-jmp	short loc_8048D03										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
+jmp	short loc_8048D03			   ; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
 
 loc_8048CA8:		; case 0x73
 movsx	eax, [ebp+var_10]
 lea	edx, [eax+7]
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 sar	eax, 1Fh
 shr	eax, 1Dh
-add	edx, eax    											; Soma valor de EDX com EAX, e armazena em EDX
+add	edx, eax    				   ; Soma valor de EDX com EAX, e armazena em EDX
 and	edx, 7
-sub	edx, eax    											; Subtrai valor de EAX de EDX, e armazena em EDX
-mov	eax, edx    											; Copia valor de EDX para EAX
+sub	edx, eax    				   ; Subtrai valor de EAX de EDX, e armazena em EDX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 mov	[ebp+var_10], al
-jmp	short loc_8048D03										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
+jmp	short loc_8048D03			   ; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
 
 loc_8048CC5:		; case 0x77
 movsx	eax, [ebp+var_10]
 lea	edx, [eax+9]
-mov	eax, edx    											; Copia valor de EDX para EAX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 sar	eax, 1Fh
 shr	eax, 1Dh
-add	edx, eax    											; Soma valor de EDX com EAX, e armazena em EDX
+add	edx, eax    				   ; Soma valor de EDX com EAX, e armazena em EDX
 and	edx, 7
-sub	edx, eax    											; Subtrai valor de EAX de EDX, e armazena em EDX
-mov	eax, edx    											; Copia valor de EDX para EAX
+sub	edx, eax    				   ; Subtrai valor de EAX de EDX, e armazena em EDX
+mov	eax, edx    				   ; Copia valor de EDX para EAX
 mov	[ebp+var_10], al
-jmp	short loc_8048D03										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
+jmp	short loc_8048D03			   ; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
 
 loc_8048CE2:		; case 0x66
 mov	ds:is_clicked, 1
-jmp	short loc_8048D03										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
+jmp	short loc_8048D03			   ; Faz um salto curto (para um local próximo) até a subrotina "loc_8048D03"
 
 loc_8048CEB:		; default
 mov	eax, ds:stderr@@GLIBC_2_0
-push	eax		; FILE *    								;  Empilha valor de EAX
+push	eax		; FILE *    	   ;  Empilha valor de EAX
 push	1Ah		; n
 push	1		; size
 push	offset aCannotRecognis ; "cannot recognise the input"
 call	_fwrite
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 nop
 
 loc_8048D03:
-movzx	eax, [ebp+var_F]    								; Copia valor apontado por [EBP+var_F] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	edx, al   											; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, [ebp+var_10]   								; Copia valor apontado por [EBP+var_10] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
-sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	edx    												; Empilha valor de EDX
-push	eax   												;  Empilha valor de EAX
-call	to_pos												; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+movzx	eax, [ebp+var_F]    	   ; Copia valor apontado por [EBP+var_F] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	edx, al   				   ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, [ebp+var_10]   	   ; Copia valor apontado por [EBP+var_10] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, al   				   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
+sub	esp, 8                         ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
+push	edx    					   ; Empilha valor de EDX
+push	eax   					   ; Empilha valor de EAX
+call	to_pos					   ; Faz uma chamada para a subrotina "to_pos"
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	ds:current_pos,	al
 nop
 mov	eax, [ebp+var_C]
 xor	eax, large gs:14h
-jz	short locret_8048D35									; Faz um salto curto (para um local próximo) até a subrotina "locret_8048D35" se a zero flag estiver setada. (ZF = 1)
-call	___stack_chk_fail									; Faz uma chamada para a subrotina "___stack_chk_fail"
+jz	short locret_8048D35		   ; Faz um salto curto (para um local próximo) até a subrotina "locret_8048D35" se a zero flag estiver setada. (ZF = 1)
+call	___stack_chk_fail		   ; Faz uma chamada para a subrotina "___stack_chk_fail"
 
 locret_8048D35:
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+leave			                   ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 retn
 manage_input endp
 
@@ -933,21 +933,21 @@ xor	eax, eax
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset aTheCurrentPawn ; "The current pawn is promoting... "
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset aWhichTypeThatY ; "Which	type that you want your	pawn to	b"...
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset aAKnightSBishop ; "a(knight) s(bishop) d(rook) w(queen) : "...
 call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 lea	eax, [ebp-0Eh]
 push	eax    												; Empilha valor de EAX
 push	offset aS	; "%s"
 call	___isoc99_scanf
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, [ebp+var_E]    								; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 cmp	eax, 64h
@@ -988,7 +988,7 @@ push	1Ah		; n
 push	1		; size
 push	offset aCannotRecognis ; "cannot recognise the input"
 call	_fwrite
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	eax, 0    ; Copia 0 para EAXFFFFFFFFh
 
 loc_8048DE8:
@@ -1015,25 +1015,25 @@ movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estenden
 movzx	ecx, al   											; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	edx, al   											; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   											; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
 push	ecx    												; Empilha valor de ECX
 push	edx    												; Empilha valor de EDX
 push	eax    												; Empilha valor de EAX
 call	is_in_check											; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8048E9B										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048E9B" se a zero flag estiver setada. (ZF = 1)
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A528 ; "\n"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A52A ; "*****************************"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
-movzx	eax, ds:cur_player
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_8048E63										; Faz um salto curto (para um local próximo) até a subrotina "loc_8048E63". Se a ZF não estiver setada. (ZF = 0)
 mov	eax, 58h
@@ -1047,38 +1047,38 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 push	offset aGameOverPlayer ; "* Game Over Player %c	win. *\n"
 call	_printf												; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A52A ; "*****************************"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A566 ; "\n\n\n\n"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 jmp	short loc_8048EEB
 
 loc_8048E9B:
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A528 ; "\n"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A56B ; "***********************"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset aGameOverStalem ; "* Game Over Stalemate	*"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A56B ; "***********************"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset asc_804A566 ; "\n\n\n\n"
 call	_puts												; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 
 loc_8048EEB:
 nop
@@ -1105,7 +1105,7 @@ mov	ds:current_pos,	24h
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	40h		; size
 call	_malloc												; Faz uma chamada para a subrotina "_malloc"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	ds:cells_type, eax
 mov	eax, ds:cells_type
 test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
@@ -1123,7 +1123,7 @@ push	40h		; size_t
 push	0		; int
 push	eax		; void *    								; Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	eax, ds:cells_type
 add	eax, 8     												; Copia valor de AL para EAX, preenchendo
 sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
@@ -1131,7 +1131,7 @@ push	8		; size_t
 push	1		; int
 push	eax		; void *    								;  Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	eax, ds:cells_type
 add	eax, 30h     											; Copia valor de AL para EAX, preenchendo
 sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
@@ -1139,7 +1139,7 @@ push	8		; size_t
 push	1		; int
 push	eax		; void *    								;  Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
 mov	eax, ds:cells_type										; Copia valor de "ds:cells_type" para EAX
 add	eax, 38h
@@ -1198,7 +1198,7 @@ mov	[edx], al   											; Copia valor de AL para o endereço de memória apon
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	40h		; size
 call	_malloc												; Faz uma chamada para a subrotina "_malloc"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	ds:are_marked, eax
 mov	eax, ds:are_marked
 test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
@@ -1216,11 +1216,11 @@ push	40h		; size_t
 push	0		; int
 push	eax		; void *    								;  Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	40h		; size
 call	_malloc												; Faz uma chamada para a subrotina "_malloc"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	ds:cells_side, eax
 mov	eax, ds:cells_side
 test	eax, eax   											; Realiza operação booleana "AND" sem armazenar valor, seta ZF=1 se o resultado só tiver bit 0, ZF=0 caso não
@@ -1238,7 +1238,7 @@ push	20h		; size_t
 push	0		; int
 push	eax		; void *    								; Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	eax, ds:cells_side
 add	eax, 20h     											; Copia valor de AL para EAX, preenchendo
 sub	esp, 4   												; Subtrai 4 (em decimal) bytes do valor de ESP
@@ -1246,7 +1246,7 @@ push	20h		; size_t
 push	1		; int
 push	eax		; void *    								; Empilha valor de EAX
 call	_memset												; Faz uma chamada para a subrotina "_memset"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 nop
 leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 retn
@@ -1271,7 +1271,7 @@ mov	ebp, esp   												; Copia valor de ESP para EBP
 sub	esp, 28h  ; Subtrai 28h (20 bytes, em decimal) de ESP, armazena em ESP
 mov	eax, [ebp+arg_0]    									; Copia valor referenciado por [EBP+var_4] para EAX
 mov	[ebp+var_1C], al    									; Copia valor de AL para endereço apontado por [EBP+var_1C]
-movzx	eax, ds:cur_player									; Copia valor de "ds:cur_player" para EAX, estendendo a parte mais sigificativa de EAX com 0's
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's									; Copia valor de "ds:cur_player" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 mov	[ebp+var_9], al   										; Copia valor de AL para endereço apontado por [EBP+var_9]
 movzx	eax, [ebp+var_1C]   								; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 mov	ds:cur_player, al					; Copia valor de AL para "ds:cur_player"
@@ -1306,7 +1306,7 @@ push	ecx    												; Empilha valor de ECX
 push	edx    												; Empilha valor de EDX
 push	eax    												; Empilha valor de EAX
 call	is_in_check											; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_804919B										; Faz um salto curto (para um local próximo) até a subrotina "loc_804919B". Se a ZF não estiver setada. (ZF = 0)
 movzx	edx, [ebp+var_A]  ; Copia valor apontado por [EBP+var_A] para EDX, estendendo a parte mais sigificativa de EDX com 0's
@@ -1317,7 +1317,7 @@ push	0
 push	edx    												; Empilha valor de EDX
 push	eax    												; Empilha valor de EAX
 call	legal_move											;Faz uma chamada para a subrotina legal_move
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   											; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_80491A2										; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_80491A2
 
@@ -1390,7 +1390,7 @@ movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais 
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    											; Empilha valor de EAX
 call	is_own_piece									; Faz uma chamada para a subrotina "is_own_piece"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	loc_8049407
 mov	[ebp+var_A], 0
@@ -1403,14 +1403,14 @@ lea	ebx, [edx+eax]
 movzx	ecx, [ebp+var_A]
 movzx	eax, ds:current_pos   ; Copia valor de "ds:current_pos" para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	edx, al   										; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   											; Subtrai 4 (em decimal) bytes do valor de ESP
 push	ecx    											; Empilha valor de ECX
 push	edx    											; Empilha valor de EDX
 push	eax    											;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_80492A2									; Faz um salto curto (para um local próximo) até a subrotina "loc_80492A2". Se a ZF não estiver setada. (ZF = 0)
 movzx	edx, [ebp+var_A]  ; Copia valor apontado por [EBP+var_A] para EDX, estendendo a parte mais sigificativa de EDX com 0's
@@ -1421,7 +1421,7 @@ push	0
 push	edx    											; Empilha valor de EDX
 push	eax    											; Empilha valor de EAX
 call	legal_move										; Faz uma chamada para a subrotina "legal_move"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_80492A2									; Faz um salto curto (para um local próximo) até a subrotina "loc_80492A2" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 1    ; Copia 1 para EAX
@@ -1471,16 +1471,16 @@ push	1
 push	edx    											; Empilha valor de EDX
 push	eax    											; Empilha valor de EAX
 call	legal_move										; Faz uma chamada para a subrotina "legal_move"
-add	esp, 10h
-movzx	eax, ds:cur_player
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 setz	al	; Copia valor 1 para AL se ZF=1, copia 0 caso contrário
 mov	ds:cur_player, al					; Copia valor de AL para "ds:cur_player"
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	offset aChangeTurn ; "change turn"
 call	_puts											; Faz uma chamada para a subrotina "_puts"
-add	esp, 10h
-movzx	eax, ds:cur_player
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 setz	al	; Copia valor 1 para AL se ZF=1, copia 0 caso contrário
 movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
@@ -1489,10 +1489,10 @@ push	0
 push	0
 push	eax    											;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al  										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8049399									; Faz um salto curto (para um local próximo) até a subrotina "loc_8049399" se a zero flag estiver setada. (ZF = 1)
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 setz	al	; Copia valor 1 para AL se ZF=1, copia 0 caso contrário
 movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
@@ -1500,26 +1500,26 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	eax    											; Empilha valor de EAX
 push	offset aPlayerDYouAreI ; "Player %d, you are in	check!!!\n" -- Empilha valor de "aPlayerDYouAreI"
 call	_printf											; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 
 loc_8049399:
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   											; Subtrai 4 (em decimal) bytes do valor de ESP
 push	0
 push	0
 push	eax    											;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   										; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_80493D2									; Faz um salto curto (para um local próximo) até a subrotina "loc_80493D2" se a zero flag estiver setada. (ZF = 1)
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   										; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	eax    											; Empilha valor de EAX
 push	offset aPlayerDYouAreI ; "Player %d, you are in	check!!!\n"
 call	_printf											; Faz uma chamada para a subrotina "_printf"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 
 loc_80493D2:
 mov	[ebp+var_9], 0  ; Copia 0 para referenciado por [EBP+var_9]
@@ -1589,7 +1589,7 @@ movzx	eax, [ebp+var_24]								; Copia valor apontado por [EBP+var_24] para EAX,
 add	eax, edx     										; Soma valor de EDX com EAX, e armazena em EDX
 movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 mov	[ebp+var_A], al   									; Copia valor de AL para endereço apontado por [EBP+var_A]
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 mov	[ebp+var_9], al   									; Copia valor de AL para endereço apontado por [EBP+var_9]
 cmp	[ebp+var_1C], 0										; Compara valor referenciado por [EBP+var_1C], e modifica ZF e CF
 setz	al	; Copia valor 1 para AL se ZF=1, copia 0 caso contrário
@@ -1601,7 +1601,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    											; Empilha valor de EDX
 push	eax    											;  Empilha valor de EAX
 call	actual_move										; Faz uma chamada para a subrotina "actual_move"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	[ebp+var_E], 0  ; Copia 0 para referenciado por [EBP+var_E]
 jmp	short loc_80494AF
 
@@ -1646,7 +1646,7 @@ push	0
 push	edx    											; Empilha valor de EDX
 push	eax    											; Empilha valor de EAX
 call	legal_move										; Faz uma chamada para a subrotina "legal_move"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 or	[ebp+var_C], al			; Aplicar operação booleana "OR" entre valor referenciado por [EBP+var_C] e AL, armazena resultado em referência [EBP+var_C]
 movzx	eax, [ebp+var_D]  ; Copia valor apontado por [EBP+var_D] para EAX, estendendo a parte mais sigificativa de EAX com 0's								; Copia valor apontado por [EBP+var_D] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, 1
@@ -1663,7 +1663,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    											; Empilha valor de EDX
 push	eax    											; Empilha valor de EAX
 call	actual_move										; Faz uma chamada para a subrotina "actual_move"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
 movzx	eax, [ebp+var_24]								; Copia valor apontado por [EBP+var_24] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	edx, eax    										; Soma valor de EDX com EAX, e armazena em EDX
@@ -1716,7 +1716,7 @@ movzx	eax, [ebp+var_1C]   ; Copia valor apontado por [EBP+var_1C] para EAX, este
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	is_own_piece						; Faz uma chamada para a subrotina "is_own_piece"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_804956D					; Faz um salto curto (para um local próximo) até a subrotina "loc_804956D". Se a ZF não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -1727,7 +1727,7 @@ movzx	eax, [ebp+var_20]	; Copia valor apontado por [EBP+var_20] para EAX, estend
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	is_own_piece						; Faz uma chamada para a subrotina "is_own_piece"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_804958B						; Faz um salto curto (para um local próximo) até a subrotina "loc_804958B" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -1788,7 +1788,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute								;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 jbe	short loc_804963D							; Faz um salto curto (para um local próximo) até a subrotina "loc_804963D" se a cf e zf flag estiverem setadas. No caso, significa que irá saltar se o resultado da comparação indicar menor ou igual. (O sinal não interere) (CF = 1 ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -1833,7 +1833,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute								;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 jnz	short loc_80496CC							; Faz um salto curto (para um local próximo) até a subrotina "loc_80496CC". Se a ZF não estiver setada. (ZF = 0)
 mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
@@ -1855,7 +1855,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 2
 jnz	loc_8049770								; Faz um salto até a subrotina "loc_8049770" se a zero flag não estiver setada. (ZF = 0)
 mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
@@ -1919,7 +1919,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 jz	short loc_80497A3						; Faz um salto curto (para um local próximo) até a subrotina "loc_80497A3" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -1964,7 +1964,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, ebx  ; Soma EBX com EAX, armazena em EAX
 mov	byte ptr [eax],	0   ; Copia O para o 1º byte do valor apontado por [EAX] para EAX
@@ -2009,7 +2009,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 jnz	short loc_80498BA					; Faz um salto curto (para um local próximo) até a subrotina "loc_80498BA". Se a ZF não estiver setada. (ZF = 0)
 movzx	edx, [ebp+var_D]  ; Copia valor apontador por [EBP+var_D] para EDX, estendendo a parte mais significativa de EDX com 0's
@@ -2021,7 +2021,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 2
 jz	loc_8049CFB
 
@@ -2034,7 +2034,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 2
 jnz	short loc_80498FC					; Faz um salto curto (para um local próximo) até a subrotina "loc_80498FC". Se a ZF não estiver setada. (ZF = 0)
 movzx	edx, [ebp+var_D]  ; Copia valor apontador por [EBP+var_D] para EDX, estendendo a parte mais significativa de EDX com 0's
@@ -2046,7 +2046,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 jz	loc_8049CFB
 
@@ -2062,7 +2062,7 @@ push	0		; Empilha 0
 push	edx		; Empilha valor de EDX
 push	eax		; Empilha valor de EAX
 call	is_path_clear					; Faz uma chamada para a subrotina "is_path_clear"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	loc_8049CFE								; Faz um salto até a subrotina "loc_8049CFE" se a zero flag não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2076,7 +2076,7 @@ push	1
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	is_path_clear					; Faz uma chamada para a subrotina "is_path_clear"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_8049952					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049952". Se a ZF não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2089,7 +2089,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	0
 push	0
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_1C]    ; Compara valor de EDX com EAX, e modifica ZF e CF
 jnz	short loc_804997F					; Faz um salto curto (para um local próximo) até a subrotina "loc_804997F". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2101,7 +2101,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	7
 push	0
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_1C]    ; Compara valor de EDX com EAX, e modifica ZF e CF
 jnz	short loc_80499A2					; Faz um salto curto (para um local próximo) até a subrotina "loc_80499A2". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2113,7 +2113,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	0
 push	7
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_1C]
 jnz	short loc_80499C5					; Faz um salto curto (para um local próximo) até a subrotina "loc_80499C5". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag
@@ -2125,7 +2125,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	7
 push	7
 call	to_pos									; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_1C]
 jnz	loc_8049D01									; Faz um salto até a subrotina "loc_8049D01" se a zero flag não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag
@@ -2141,7 +2141,7 @@ push	1
 push	edx    									; Empilha valor de EDX
 push	eax    									;  Empilha valor de EAX
 call	is_path_clear							; Faz uma chamada para a subrotina "is_path_clear"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	loc_8049D04								; Faz um salto até a subrotina "loc_8049D04" se a zero flag não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2156,7 +2156,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 ja	short loc_8049A8E
 movzx	edx, [ebp+var_D]  ; Copia valor apontador por [EBP+var_D] para EDX, estendendo a parte mais significativa de EDX com 0's
@@ -2168,12 +2168,12 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 1		; Compara AL com 1 (em decimal), e modifica ZF e CF
 ja	short loc_8049A8E
 cmp	[ebp+var_24], 0   ; Compara valor referenciado por [EBP+var_24], e modifica ZF e CF
 jz	loc_8049D07
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, 4
 mov	edx, 1
@@ -2190,7 +2190,7 @@ loc_8049A8E:
 cmp	[ebp+var_C], 4
 jnz	short loc_8049AB3					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049AB3". Se a ZF não estiver setada. (ZF = 0)
 movsx	edx, [ebp+var_D]
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_8049AAA					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049AAA". Se a ZF não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2210,7 +2210,7 @@ jmp	loc_8049DE9									; Faz um salto incondicional até a subrotina "loc_8049D
 loc_8049ABD:
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
 movzx	edx, al   ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, 4
 mov	ecx, eax    ; Copia valor de ECX para EAX
@@ -2238,7 +2238,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, 2
 jz	short loc_8049B27						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049B27" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2257,7 +2257,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute						;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	ecx, al   ; Copia valor de AL para ECX, estendendo a parte mais sigificativa de ECX com 0's
 mov	eax, ebx    ; Copia valor de EBX para EAX
 cdq
@@ -2265,7 +2265,7 @@ idiv	ecx
 mov	[ebp+var_9], al   ; Copia valor de AL para endereço apontado por [EBP+var_9]
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
 movzx	edx, al   ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 lea	ecx, [eax+eax]
 cmp	[ebp+var_9], 1
@@ -2282,29 +2282,29 @@ mov	eax, 0    ; Copia 0 para EAX
 jmp	loc_8049DE9									; Faz um salto incondicional até a subrotina "loc_8049DE9"
 
 loc_8049B93:
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shl	eax, 3
 lea	edx, ds:0[eax*8]
-sub	edx, eax    ; Subtrai valor de EAX de EDX, e armazena em EDX
-mov	eax, edx    ; Copia valor de EDX para EAX
-cmp	[ebp+var_9], 1
+sub	edx, eax                            ; Subtrai valor de EAX de EDX, e armazena em EDX
+mov	eax, edx                            ; Copia valor de EDX para EAX
+cmp	[ebp+var_9], 1                      ; Compara 1 e o valor de EBP+VAR_9
 jnz	short loc_8049BB5					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049BB5". Se a ZF não estiver setada. (ZF = 0)
-mov	edx, 7
-jmp	short loc_8049BBA
+mov	edx, 7                              ; Copia 7 (decimal) para EDX
+jmp	short loc_8049BBA                   ; Faz um salto curto incondicional (para um local próximo) até a subrotina "loc_8049BBA".
 
 loc_8049BB5:
-mov	edx, 0
+mov	edx, 0                  ; Copia 0 (decimal) para EDX
 
 loc_8049BBA:
 add	eax, edx     ; Soma valor de EDX com EAX, e armazena em EDX
 movzx	edx, al   ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, [ebp+var_1C]   ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-push	0
-push	1
+push	0                             ; Empilha 0 (decimal)
+push	1                             ; Empilha 1 (decimal)
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	is_path_clear					; Faz uma chamada para a subrotina "is_path_clear"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jnz	short loc_8049BDF					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049BDF". Se a ZF não estiver setada. (ZF = 0)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2313,14 +2313,14 @@ jmp	loc_8049DE9									; Faz um salto incondicional até a subrotina "loc_8049D
 loc_8049BDF:
 movzx	ecx, [ebp+var_1C] ; Copia valor apontado por [EBP+var_1C] para ECX, estendendo a parte mais sigificativa de ECX com 0's
 movzx	edx, [ebp+var_1C]	; Copia valor apontado por [EBP+var_1C] para EDX, estendendo a parte mais sigificativa de EDX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   ; Subtrai 4 (em decimal) bytes do valor de ESP
 push	ecx    ; Empilha valor de ECX
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8049C0D						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049C0D" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2332,14 +2332,14 @@ movzx	eax, [ebp+var_9]  ; Copia valor apontado por [EBP+var_9] para EAX, estende
 add	eax, edx     ; Soma valor de EDX com EAX, e armazena em EDX
 movzx	ecx, al   ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	edx, [ebp+var_1C]	; Copia valor apontado por [EBP+var_1C] para EDX, estendendo a parte mais sigificativa de EDX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   ; Subtrai 4 (em decimal) bytes do valor de ESP
 push	ecx    ; Empilha valor de ECX
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8049C44						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049C44" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2352,14 +2352,14 @@ movzx	eax, [ebp+var_1C]   ; Copia valor apontado por [EBP+var_1C] para EAX, este
 add	eax, edx     ; Soma valor de EDX com EAX, e armazena em EDX
 movzx	ecx, al   ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	edx, [ebp+var_1C]	; Copia valor apontado por [EBP+var_1C] para EDX, estendendo a parte mais sigificativa de EDX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 sub	esp, 4   ; Subtrai 4 (em decimal) bytes do valor de ESP
 push	ecx    ; Empilha valor de ECX
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	is_in_check										; Faz uma chamada para a subrotina "is_in_check"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8049C7E						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049C7E" se a zero flag estiver setada. (ZF = 1)
 mov	eax, 0    ; Copia 0 para EAX
@@ -2372,7 +2372,7 @@ movzx	edx, [ebp+var_1C]	; Copia valor apontado por [EBP+var_1C] para EDX, estend
 movzx	eax, [ebp+var_9]  ; Copia valor apontado por [EBP+var_9] para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, edx     ; Soma valor de EDX com EAX, e armazena em EDX
 movzx	edx, al   ; Copia valor apontado por [ebp+var_C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-movzx	eax, ds:cur_player
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 shl	eax, 3
 lea	ecx, ds:0[eax*8]
 sub	ecx, eax
@@ -2392,8 +2392,8 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	actual_move										; Faz uma chamada para a subrotina "actual_move"
-add	esp, 10h
-movzx	eax, ds:cur_player
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
 movzx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificativa de EAX com 0's
 add	eax, 4
 mov	edx, 1
@@ -2442,27 +2442,27 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    ; Empilha valor de EDX
 push	eax    ;  Empilha valor de EAX
 call	actual_move										; Faz uma chamada para a subrotina "actual_move"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 movzx	eax, ds:en_passant_flag
-cmp	al, 0FFh
+cmp	al, 0FFh                                ; Compara 0FFh (255) em decimal
 jz	short loc_8049D51						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049D51" se a zero flag estiver setada. (ZF = 1)
 movzx	eax, ds:en_passant_flag
-cmp	al, 7
+cmp	al, 7                                   ; Compara 7 e al
 jbe	short loc_8049D51							; Faz um salto curto (para um local próximo) até a subrotina "loc_8049D51" se a cf e zf flag estiverem setadas. No caso, significa que irá saltar se o resultado da comparação indicar menor ou igual. (O sinal não interere) (CF = 1 ZF = 1)
 movzx	eax, ds:en_passant_flag
 sub	eax, 8
 mov	ds:en_passant_flag, al  ; Copia valor de AL para "ds:en_passant_flag"
-jmp	short loc_8049D58
+jmp	short loc_8049D58                       ; Salto curto incondicional para loc_8049D58
 
 loc_8049D51:
 mov	ds:en_passant_flag, 0FFh
 
 loc_8049D58:
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	0
-push	0
+push	0                                 ; Empilha 0 (decimal)
+push	0                                 ; Empilha 0 (decimal)
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_20]    ; Compara AL com valor referenciado por [EBP+var_20], e modifica ZF e CF
 jnz	short loc_8049D7B					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049D7B". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2471,10 +2471,10 @@ mov	ds:castle_flag,	al
 
 loc_8049D7B:
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	7
-push	0
+push	7                          ; Empilha 7 (decimal)
+push	0                          ; Empilha 0 (decimal)
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_20]    ; Compara valor referenciado por [EBP+var_1C] com AL, e modifica ZF e CF
 jnz	short loc_8049D9E					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049D9E". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2483,10 +2483,10 @@ mov	ds:castle_flag,	al
 
 loc_8049D9E:
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	0
-push	7
+push	0                          ; Empilha 0
+push	7                          ; Empilha 7
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_20]    ; Compara valor referenciado por [EBP+var_1C] com AL, e modifica ZF e CF
 jnz	short loc_8049DC1					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049DC1". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2495,10 +2495,10 @@ mov	ds:castle_flag,	al
 
 loc_8049DC1:
 sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
-push	7
-push	7
+push	7                               ; Empilha 7 (decimal)
+push	7                               ; Empilha 7 (decimal)
 call	to_pos							; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 cmp	al, [ebp+var_20]    ; Compara valor referenciado por [EBP+var_1C] com AL, e modifica ZF e CF
 jnz	short loc_8049DE4					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049DE4". Se a ZF não estiver setada. (ZF = 0)
 movzx	eax, ds:castle_flag ; Copia valor de AL para EDX, estendendo a parte mais significativa de EDX com zeros (Adiciona 0's à esquerda).
@@ -2536,14 +2536,14 @@ movzx	eax, byte ptr [eax] ; Copia 1 byte do valor apontado por [EAX] para EAX, e
 test	al, al   ; Aplica a operação booleana "AND" entre valores AL e AL, seta ZF=1 a cada bit 1-1 comparado. Não armazena valor em registrador
 jz	short loc_8049E2E						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049E2E" se a zero flag estiver setada. (ZF = 1)
 mov	edx, ds:cells_side
-movzx	eax, [ebp+var_4]    ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
-add	eax, edx     ; Soma valor de EDX com EAX, e armazena em EDX
+movzx	eax, [ebp+var_4]                ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
+add	eax, edx                            ; Soma valor de EDX com EAX, e armazena em EDX
 movzx	edx, byte ptr [eax]
-movzx	eax, ds:cur_player
-cmp	dl, al
+movzx	eax, ds:cur_player              ; Copia valor de ds:cur_player para EAX, estendendo a parte mais sigificativa de EAX com 0's
+cmp	dl, al                              ; Compara al e dl
 jnz	short loc_8049E2E					; Faz um salto curto (para um local próximo) até a subrotina "loc_8049E2E". Se a ZF não estiver setada. (ZF = 0)
-mov	eax, 1    ; Copia 1 para EAX
-jmp	short locret_8049E33
+mov	eax, 1                       ; Copia 1 para EAX
+jmp	short locret_8049E33                ; Salto curto incondicional para locret_8049E33
 
 loc_8049E2E:
 mov	eax, 0    ; Copia 0 para EAX
@@ -2556,7 +2556,7 @@ is_own_piece endp
 
 
 ; Attributes: bp-based frame
-
+; DECLARAÇÃO DE VARIÁVEIS ##################
 public is_path_clear
 is_path_clear proc near
 
@@ -2580,7 +2580,7 @@ arg_0= dword ptr  8
 arg_4= dword ptr  0Ch
 arg_8= dword ptr  10h
 arg_C= dword ptr  14h
-
+;##########################################
 push	ebp    ; Empilha valor de EBP
 mov	ebp, es   ; Empilha valor EBX
 push	ebx
@@ -2631,7 +2631,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute							;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	[ebp+var_E], al   ; Copia valor de AL para o endereço de memória apontado por [EBP+var_E]
 movzx	edx, [ebp+var_11]   ; Copia valor apontado por [EBP+var_11] para EDX, estendendo a parte mais sigificativa de EDX com 0's
 movzx	eax, [ebp+var_F]    ; Copia valor apontado por [EBP+var_1C] para EAX, estendendo a parte mais sigificativa de EAX com 0's
@@ -2641,7 +2641,7 @@ movsx	eax, al   ; Copia valor de AL para EAX, estendendo a parte mais sigificati
 sub	esp, 0Ch		; Subtrai 0Ch (12 bytes, em decimal) de ESP, armazena em ESP
 push	eax    ;  Empilha valor de EAX
 call	absolute							;Faz uma chamada para a subrotina "absolute"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	[ebp+var_D], al ; Copia Valor de AL para referenciado por [EBP+var_D]
 cmp	[ebp+var_E], 0
 jz	short loc_8049F15						; Faz um salto curto (para um local próximo) até a subrotina "loc_8049F15" se a zero flag estiver setada. (ZF = 1)
@@ -2747,7 +2747,7 @@ sub	esp, 8    ; Subtrai 8 (8 bytes, em decimal) de ESP, armazena em ESP
 push	edx    												; Empilha valor de EDX
 push	eax    												; Empilha valor de EAX
 call	to_pos												; Faz uma chamada para a subrotina "to_pos"
-add	esp, 10h
+add	esp, 10h                        ; Adiciona 10h(16 em decimal) em ESP
 mov	[ebp+var_9], al   										; Copia valor de AL para endereço apontado por [EBP+var_9]
 mov	edx, ds:cells_type										; Copia valor de "ds:cells_type" para EDX
 movsx	eax, [ebp+var_9]    								; Copia valor apontado por [EBP+var_9] para EAX, estendendo a parte mais sigificativa de EAX com 0's
@@ -2887,18 +2887,18 @@ mov	ebp, esp    							; Copia valor de ESP para EBP
 sub	esp, 4  								; Subtrai 4 (em decimal) bytes do valor de ESP
 mov	eax, [ebp+arg_0]    					; Copia valor referenciado por [EBP+arg_0] para EAX
 mov	[ebp+var_4], al   						; Copia valor de AL para endereço apontado por [EBP+var_4]
-cmp	[ebp+var_4], 0
-js	short loc_804A122
-mov	eax, 1    ; Copia 1 para EAX
-jmp	short loc_804A127
+cmp	[ebp+var_4], 0                          ; Compara 0 e o valor de EBP+var_4
+js	short loc_804A122                       ; Salto para loc_804A122, se a Signal Flag estiver setada. (SF = 1)
+mov	eax, 1                                  ; Copia 1 para EAX
+jmp	short loc_804A127                       ; Salto incondicional para loc_804A127
 
-loc_804A122:
-mov	eax, 0    ; Copia 0 para EAXFFFFFFFFh
+loc_804A122:                                ; Declaração da label loc_804A122
+mov	eax, 0                                  ; Copia 0 para EAXFFFFFFFFh
 
-loc_804A127:
+loc_804A127:                                ; Declaração da label loc_804A127
 movzx	edx, [ebp+var_4]    				; Copia valor apontado por [EBP+var_4] para EDX, estendendo a parte mais sigificativa de EDX com 0's
 imul	eax, edx   							; Realiza uma multiplicação com sinal  entre EAX e EDX, armazena resultado em EAX
-leave			; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
+leave			                            ; Termina o espaço reservado para variáveis locais e retira o EBP da pilha
 retn
 absolute endp
 
@@ -2932,17 +2932,17 @@ lea	esi, [esi+0]
 
 loc_804A168:     							; Copia valor de AL para EAX, preenchendo
 sub	esp, 4   								; Subtrai 4 (em decimal) bytes do valor de ESP
-push	[esp+10h+arg_8]
-push	[esp+14h+arg_4]
+push	[esp+10h+arg_8]                     ; Empilha [esp+10h+arg_8]
+push	[esp+14h+arg_4]                     ; Empilha [esp+14h+arg_4]
 push	ebp    								; Empilha valor de EBP
 call	dword ptr [ebx+edi*4-0F8h]
 add	edi, 1
-add	esp, 10h
+add	esp, 10h                                ; Adiciona 10h(16 em decimal) em ESP
 cmp	edi, esi    							; Compara valor de EDI com ESI, e modifica ZF e CF
 jnz	short loc_804A168						; Faz um salto curto (para um local próximo) até a subrotina "short". Se a ZF não estiver setada. (ZF = 0) loc_804A168
 
 loc_804A185:
-add	esp, 0Ch
+add	esp, 0Ch                                ; Soma 0Ch (12 em decimal) e ESP
 pop	ebx   									; Desempilha EBX
 pop	esi   									; Desempilha ESI
 pop	edi   									; Desempilha EDI
@@ -2985,8 +2985,7 @@ _term_proc endp
 _fini ends
 
 
-; ####### VARIÁVEIS GLOBAIS E MENSAGENS UTILIZADAS NO JOGO
-
+; #################### SEGMENTO DE STRINGS #################################
 ; Segment type:	Pure data
 ; Segment permissions: Read
 ; Segment alignment '32byte' can not be represented in assembly
@@ -3183,7 +3182,8 @@ align 4
 __PRETTY_FUNCTION___2836 db 'actual_move',0
 _rodata	ends
 
-; FIM: VARIÁVEIS GLOBAIS; MENSAGENS; FUNÇÕES INTERNAS UTILIZADAS NO JOGO ########
+
+; #################### FIM DAS STRINGS #################################
 
 ; Segment type:	Pure data
 ; Segment permissions: Read
@@ -4097,7 +4097,7 @@ db    0
 db    0
 _data ends
 
-
+; #################### SEGMENTO DE VARIÁVEIS GLOBAIS #################################
 ; Segment type:	Uninitialized
 ; Segment permissions: Read/Write
 ; Segment alignment 'qword' can not be represented in assembly
@@ -4137,7 +4137,10 @@ public cells_side
 cells_side dd ?
 _bss ends
 
+; #################### FIM DE VARIÁVEIS GLOBAIS #################################
 
+
+; #################### SEGMENTO DE FUNÇÕES EXTERNAS #################################
 ; Segment type:	Externs
 ; extern
 extrn printf@@GLIBC_2_0:near
